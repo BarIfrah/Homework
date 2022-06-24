@@ -1,38 +1,51 @@
 """
 Ex. 2 - Max subarray
 
-will elaborate tomorrow
+Given an list of integers of the size of N,
+you need to return (start_index, end_index) to designate the subarray with the highest sum.
+
+Notes:
+Please provide a naïve solution
+There’s a solution that solves the problem using a single iteration – please try to provide it as well.
+
 """
+
 
 # ======================================================================================================================
 def max_subarray(nums_array: list):
     """
     Using "Maximum subarray problem" with dynamic programming solution
+    To return a python slicing tuple for the list, add (1) to the return statement (as '''end + 1''')
     :param nums_array: a list of nums_array
-    :return: Tuple, the indexes of the maximum subarray (e.g for [0, 10, 20, -647, 10, 4, 20] will return (4, 7)
+    :return: Tuple, the indexes of the maximum subarray (e.g for [0, 10, 20, -647, 10, 4, 20] will return (4, 6)
     """
-    best_sum = 0  # or: float('-inf')
-    current_start = best_start = best_end = 0  # or: None
-    current_sum = 0
-    for current_end, x in enumerate(nums_array):
-        if current_sum <= 0:
-            current_start = current_end
-            current_sum = x
-        else:
-            current_sum += x
+    curr_max = final_max_sum = nums_array[0]
+    start = end = max_start = 0
 
-        if current_sum > best_sum:
-            best_sum = current_sum
-            best_start = current_start
-            best_end = current_end + 1
-    return best_start, best_end
+    for i in range(0, len(nums_array)):
+
+        curr_max += nums_array[i]
+
+        if final_max_sum < curr_max:
+            final_max_sum = curr_max
+            max_start = start
+            end = i
+
+        if curr_max < 0:
+            curr_max = 0
+            start = i + 1
+    return max_start, end
 
 
 # ======================================================================================================================
 if __name__ == '__main__':
-    a = [-2, -3, 4, -1, -2, 1, 5, -3]
+    # test cases fot you to use
+    a = [-2, -3, 4, -1, -2, 1, 5, -3]  # 2, 6
     b = [0, 10, 20, -647, 10, 4, 20]
     c = [1 for _ in range(7)]
+    d = [-10, -9, -8, -7, -6, -12, -9]
     print(max_subarray(a))
     print(max_subarray(b))
     print(max_subarray(c))
+    print(max_subarray(d))
+

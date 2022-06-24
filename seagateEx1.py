@@ -58,6 +58,9 @@ def calc_ladder_steps_with_dictionary_values(curr_step, steps_dict):
 # 1 1 2 3 5 8 13 21 34 55 89
 # 0 1 2 3 4 5 6  7  8  9  10
 if __name__ == '__main__':
+    # test case for the regular recursion:
+    calc_ladder_steps(8)
+    # test case for 8 and the improvement made
     print(calc_ladder_steps(8))
     steps_dict = {1: 1,
                   2: 2,
