@@ -1,52 +1,38 @@
 """
+Ex. 2 - Max subarray
 
+will elaborate tomorrow
 """
-# ======================================================================================================================
-def calc_ladder_steps(curr_step):
-    """
-    Ex. 1 a
-    Recursive function to calculate possible ways to climb on a n steps ladder (when only 1 or 2 steps
-    are allowed on each climbing attempt)
-    :param curr_step: the current ladder size
-    :return: possible climbing options for "curr_steps"
-    """
-    if curr_step == 1:
-        return 1
-    elif curr_step == 2:
-        return 2
-    return calc_ladder_steps(curr_step - 1) + calc_ladder_steps(curr_step - 2)
-
 
 # ======================================================================================================================
-def calc_ladder_steps_with_dictionary_values(curr_step, steps_dict):
+def max_subarray(nums_array: list):
     """
-    This function is the improvement for ex 1 a.
-    When running multiple times, a kind of database is necessary to save some computations.
-    So, we create a dict, with the computed times and check if the value reached in the recursion is in the dict.
-    If so, we return it's value, instead of running the recursive computations again.
-    :param curr_step:
-    :param steps_dict
-    :return:
+    Using "Maximum subarray problem" with dynamic programming solution
+    :param nums_array: a list of nums_array
+    :return: Tuple, the indexes of the maximum subarray (e.g for [0, 10, 20, -647, 10, 4, 20] will return (4, 7)
     """
-    if curr_step == 1:
-        return 1
-    elif curr_step == 2:
-        return 2
-    elif curr_step in steps_dict:
-        return steps_dict[curr_step]
-    return calc_ladder_steps_with_dictionary_values(curr_step - 1, steps_dict) + \
-           calc_ladder_steps_with_dictionary_values(curr_step - 2, steps_dict)
+    best_sum = 0  # or: float('-inf')
+    current_start = best_start = best_end = 0  # or: None
+    current_sum = 0
+    for current_end, x in enumerate(nums_array):
+        if current_sum <= 0:
+            current_start = current_end
+            current_sum = x
+        else:
+            current_sum += x
+
+        if current_sum > best_sum:
+            best_sum = current_sum
+            best_start = current_start
+            best_end = current_end + 1
+    return best_start, best_end
 
 
 # ======================================================================================================================
-# 1 1 2 3 5 8 13 21 34 55 89
-# 0 1 2 3 4 5 6  7  8  9  10
 if __name__ == '__main__':
-    print(calc_ladder_steps(8))
-    steps_dict = {1: "1",
-                  2: "2",
-                  3: "3",
-                  4: "5",
-                  5: "8"}
-    steps_dict[8] = calc_ladder_steps_with_dictionary_values(8, steps_dict)
-    print(steps_dict[8])
+    a = [-2, -3, 4, -1, -2, 1, 5, -3]
+    b = [0, 10, 20, -647, 10, 4, 20]
+    c = [1 for _ in range(7)]
+    print(max_subarray(a))
+    print(max_subarray(b))
+    print(max_subarray(c))
