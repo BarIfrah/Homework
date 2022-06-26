@@ -29,8 +29,10 @@ I'll go left-to-right\
 
 1c. The improvements made to the original recursive function. The main improvement is\
 The main improvement is the dictionary that stores passed calls and their results,\
-so when we reach the certain value we return its dictionary value instead of computing all over again.
+so when we reach the certain value we return its dictionary value instead of computing all over again.\
 
+Tree visit is "post-order"ish (ish because its not really a binary tree). Tree scheme attached as PDF.\
+[https://miro.medium.com/max/1000/1*UGrzA4qtLCaaCiNAKZyj_w.gif]
 ### Part two: Maximum Subarray
 In this part I'm using a variation of Kadane's algorithm.\
 Using one iteration as required.
